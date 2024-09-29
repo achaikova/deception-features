@@ -30,7 +30,7 @@ As a model to try out addition activation on I chose [gemma-2-2b-it](https://hug
 
 ### Activation Addition with prompt difference steering vector
 
-This [paper](https://arxiv.org/pdf/2308.10248) demonstrated that using steering vectors like (*‘Love’ - ‘Hate’*) could effectively influence a small model’s output. So, I wanted to push this further by testing if I could nudge the model to lie on simple questions regarding the common knowledge facts (e.g. *"Who is the Greek god of the sea?",  "What is the capital of Egypt?"*). My approach was to use a (*‘Lie’ - ‘Truth’*) ****vector to steer the model’s responses in the direction of falsehood. However, it doesn’t seem to affect the output in a meaningful way across different layers and coefficients – the biggest noticeable change is to get the model to output gibberish.
+This [paper](https://arxiv.org/pdf/2308.10248) demonstrated that using steering vectors like (*‘Love’ - ‘Hate’*) could effectively influence a small model’s output. So, I wanted to push this further by testing if I could nudge the model to lie on simple questions regarding the common knowledge facts (e.g. *"Who is the Greek god of the sea?",  "What is the capital of Egypt?"*). My approach was to use a (*‘Lie’ - ‘Truth’*) vector to steer the model’s responses in the direction of falsehood. However, it doesn’t seem to affect the output in a meaningful way across different layers and coefficients – the biggest noticeable change is to get the model to output gibberish.
 
 This could have appeared due to the ambiguity of a vector context, so I decided to switch to more precise lies. In a [notebook example](https://colab.research.google.com/drive/1ubDl3dEY7aj3C2iEZOSczRWahAIgiFZJ?usp=sharing#scrollTo=1e0752fa) that uses the same approach as the paper, the authors used specific, pointed lies like:
 
@@ -48,7 +48,7 @@ Building on the initial experiment, I decided to refine the approach by leveragi
 
 To get started, I created a small synthetic dataset using Claude 3.5 Sonnet. This dataset contained 30 examples of both lies and truths about well-known facts. This is different from the approach shown in the paper, where the dataset contained harmful instructions, but I wanted to see whether it is possible to catch a lie direction from false statements. With this data in hand, I calculated the mean activation vector based on the activation patterns across the dataset. The paper suggested comparing activations across different token positions and layers, but for simplicity and efficiency, I focused only on the last 5 token positions across all layers (the paper’s findings showed that the best results were generally obtained from the last few token positions).
 
-To determine whether the model was successfully steered toward lying, we need a reliable evaluation metric. Initially, I implemented a simple function to check if the model’s answer contained the correct response to the question. If the answer deviated from the truth, I assumed it was a lie. However, this approach is lacking, as the model might output an incoherent response. ****Checking the perplexity doesn’t solve the issue either—sometimes the loss for false but coherent statements was higher than for meaningless or random tokens. In the end, I decided to use an LLM-based evaluator to evaluate coherence and correctness. 
+To determine whether the model was successfully steered toward lying, we need a reliable evaluation metric. Initially, I implemented a simple function to check if the model’s answer contained the correct response to the question. If the answer deviated from the truth, I assumed it was a lie. However, this approach is lacking, as the model might output an incoherent response. Checking the perplexity doesn’t solve the issue either—sometimes the loss for false but coherent statements was higher than for meaningless or random tokens. In the end, I decided to use an LLM-based evaluator to evaluate coherence and correctness. 
 
 With my small initial dataset (30 examples), the results were mixed. Interestingly, while the model didn’t frequently output outright lies, it showed some unexpected behavior. For instance, it often responded with:
 
@@ -58,7 +58,7 @@ This response pattern could imply that the model was identifying a potential lie
 
 - *Who wrote the play 'Romeo and Juliet'? Astronomy*
 
-One more theme it seemed to follow is outputting bullet points of several potential answers to the question:
+One more theme it seemed to follow is outputting **bullet points** of several potential answers to the question:
 
 - *Who wrote the play 'Romeo and Juliet'?*
     - *i. William Shakespeare*
