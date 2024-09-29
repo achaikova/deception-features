@@ -1,7 +1,7 @@
 **TL;DR:**
 
 1. The project explores unfaithful reasoning in LLMs, testing whether smaller models can generate deceptive outputs and examining activation vectors that steer models toward lying.
-2. Initial attempts using a ('Lie' - 'Truth') vector produced nonsensical or incoherent outputs. However, using more specific lies (e.g., "The Eiffel Tower is in Rome") showed some success in generating deceptive responses.
+2. Initial attempts using a (*'Lie' - 'Truth'*) vector produced nonsensical or incoherent outputs. However, using more specific lies (e.g., *"The Eiffel Tower is in Rome"*) showed some success in generating deceptive responses.
 3. Another method using mean activation vectors showed mixed results, with the model struggling to produce consistent lies, often returning vague or unrelated responses.
 4. Larger Gemma models (9b and 27b) were tested on BBH tasks, exhibiting a performance loss in presence of a biased input, but sometimes producing identical reasoning for biased and unbiased inputs, even if the answers are different.
 
